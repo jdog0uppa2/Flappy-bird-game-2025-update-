@@ -1,0 +1,66 @@
+import pygame
+import random
+import sys
+
+# Initialize Pygame
+pygame.init()
+
+# Set up the screen
+screen_width = 600
+screen_height = 400
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption('Catch the Falling Objects')
+
+# Set up colors
+WHITE = (255, 255, 255)
+BLUE = (0, 0, 255)
+RED = (255, 0, 0)
+
+# Set up the clock
+clock = pygame.time.Clock()
+
+# Define the player (e.g., a rectangle)
+player_width = 50
+player_height = 10
+player_x = screen_width // 2 - player_width // 2
+player_y = screen_height - player_height - 10
+player_speed = 5
+
+# Define the falling object
+object_width = 20
+object_height = 20
+object_speed = 5
+falling_object_x = random.randint(0, screen_width - object_width)
+falling_object_y = 0
+
+# Game variables
+score = 0
+game_over = False
+
+# Font for score display
+font = pygame.font.Font(None, 36)
+
+# Function to draw the player
+def draw_player(x, y):
+    pygame.draw.rect(screen, BLUE, (x, y, player_width, player_height))
+
+# Function to draw the falling object
+def draw_falling_object(x, y):
+    pygame.draw.rect(screen, RED, (x, y, object_width, object_height))
+
+# Function to display the score
+def display_score(score):
+    score_text = font.render(f'Score: {score}', True, WHITE)
+    screen.blit(score_text, (10, 10))
+
+# Main game loop
+while True:
+    screen.fill((0, 0, 0))  # Fill the screen with black
+
+    # Event handling
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    # Handle player
